@@ -43,48 +43,17 @@
             <!-- 最新文章 -->
             <div class="flex flex-wrap relative">
                 <div class="bg-white p-6 rounded-md mt-4 w-full lg:w-8/12" ref="leftNormalContainer">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center">
-                            <p class="font-semibold text-2xl">最新文章</p>
+                    <div class="flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-2.5">
+                            <span class="h-5 w-1 rounded-full bg-blue-600"></span>
+                            <p class="text-2xl font-semibold">最新文章</p>
                         </div>
-                        <nuxt-link to="read">
-                            <div class="btn-1">更多</div>
-                        </nuxt-link>
+                        <nuxt-link to="read" class="btn-1">更多</nuxt-link>
                     </div>
-                    <ul>
-                        <li v-for="(item, index) in articleList" :key="index" class="mt-4">
-                            <div class="border-b pb-2">
-                                <div class="flex relative">
-                                    <div class="flex-1 mr-2">
-                                        <nuxt-link target="_blank" :to="'/read/post/' + item.id">
-                                            <p class=" font-semibold text-base h-8 leading-8 w-full overflow-y-hidden"
-                                                v-text="item.title">
-                                            </p>
-                                        </nuxt-link>
-                                        <p class=" custom-font-14 leading-8 overflow-hidden h-6 text-gray-400 mb-2"
-                                            v-text="item.summary"></p>
-                                        <ul class="flex items-center mt-6">
-                                            <li class="flex items-center leading-4">
-                                                <span class="flex items-center iconfont icon-browse" />
-                                                <span class="custom-font-12 ml-1" v-text="item.viewCount"></span>
-                                            </li>
-                                            <!-- <li class="flex items-center leading-4 ml-1">
-                                                <span class="flex items-center iconfont icon-good" /><span
-                                                    class="custom-font-12 ml-1">1887</span>
-                                            </li>
-                                            <li class="flex items-center leading-4 ml-1">
-                                                <span class="flex items-center iconfont icon-comments" /><span
-                                                    class="custom-font-12 ml-1">1887</span>
-                                            </li> -->
-                                        </ul>
-                                    </div>
-                                    <!-- <div v-if="item.image == ''" class="flex-none w-32 h-24"></div> -->
-                                    <img v-if="item.image != ''" class="w-32 h-24 right-0 object-contain" :src="item.image"
-                                        alt="" srcset="" />
-                                </div>
-                            </div>
-                        </li>
+                    <ul class="mt-1">
+                        <ArticleListItem v-for="item in articleList" :key="item.id" :article="item" />
                     </ul>
+                    <p v-if="!articleList.length" class="py-12 text-center text-sm text-gray-400">暂无文章</p>
                 </div>
 
                 <!-- 广而告之 -->
@@ -154,13 +123,13 @@ const toolList = ref<any[]>([])
 const articleList = ref<any[]>([])
 
 const { data: toolData, pending: toolPending, refresh: ToolRefresh, error: toolError } = await useAsyncData("index_GetToolList", () => api.tool.getList(1, 12, ""));
-if (toolData.value!.success) {
-    toolList.value = toolList.value.concat(toolData.value!.data.content)
+if (toolData.value?.success) {
+    toolList.value = toolList.value.concat(toolData.value.data.content)
 }
 
 const { data: articleData, pending: articlePending, refresh: ArticleRefresh, error: articleError } = await useAsyncData("index_GetArticleList", () => api.article.getList(1, 10, ""));
-if (articleData.value!.success) {
-    articleList.value = articleList.value.concat(articleData.value!.data.content)
+if (articleData.value?.success) {
+    articleList.value = articleList.value.concat(articleData.value.data.content)
 }
 
 onMounted(async () => {
@@ -211,12 +180,3 @@ useHead({
     ],
 })
 </script>
-<style>
-.RightFixedContainer-absolute {
-    @apply absolute;
-}
-
-.RightFixedContainer-fixed {
-    @apply fixed top-2;
-}
-</style>

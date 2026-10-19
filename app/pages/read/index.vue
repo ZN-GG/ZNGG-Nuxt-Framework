@@ -3,89 +3,62 @@
         <div class="mx-auto container px-4 my-8">
             <div class="flex flex-wrap relative">
                 <div class="bg-white p-6 rounded-md mt-4 w-full lg:w-8/12" ref="leftNormalContainer">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center">
-                            <p class="font-semibold text-2xl">最新文章</p>
+                    <div class="flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-2.5">
+                            <span class="h-5 w-1 rounded-full bg-blue-600"></span>
+                            <p class="text-2xl font-semibold">最新文章</p>
                         </div>
-                        <div>
-                            <div @click="showCategory()" class="relative bg-gray-100 px-3 cursor-pointer rounded-md">
-                                <span class="custom-font-14 leading-8 relative inline select-none">分类
-                                    <span class="iconfont icon-arrow-down inline-block"
-                                        :class="isShowCategory ? 'reverse' : ''" />
-                                </span>
-                            </div>
+                        <button type="button" @click="showCategory()"
+                            class="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-base text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600"
+                            :aria-expanded="isShowCategory">
+                            <span class="iconfont icon-category text-base" aria-hidden="true"></span>
+                            <span>分类</span>
+                            <span class="iconfont icon-arrow-down text-xs transition-transform duration-200"
+                                :class="isShowCategory ? 'rotate-180' : ''" aria-hidden="true" />
+                        </button>
+                    </div>
+
+                    <div v-show="isShowCategory" class="mt-3 border-b border-gray-100 pb-4">
+                        <div class="category-scroll flex gap-2 overflow-x-auto">
+                            <button type="button" @click="selectCategoryId('')"
+                                class="shrink-0 rounded-full border px-4 py-1.5 text-sm transition-all duration-200"
+                                :class="categoryId == '' ? 'border-blue-600 bg-blue-600 font-medium text-white shadow-sm shadow-blue-600/20' : 'border-gray-200 bg-white text-gray-600 hover:border-blue-200 hover:bg-blue-50/60 hover:text-blue-600'">
+                                全部
+                            </button>
+                            <button type="button" v-for="item in categoryList" :key="item.id"
+                                @click="selectCategoryId(item.id)"
+                                class="shrink-0 rounded-full border px-4 py-1.5 text-sm transition-all duration-200"
+                                :class="categoryId == item.id ? 'border-blue-600 bg-blue-600 font-medium text-white shadow-sm shadow-blue-600/20' : 'border-gray-200 bg-white text-gray-600 hover:border-blue-200 hover:bg-blue-50/60 hover:text-blue-600'">
+                                {{ item.name }}
+                            </button>
                         </div>
                     </div>
 
-                    <div v-show="isShowCategory" :class="isShowCategory ? '' : 'hidden'"
-                        class="flex py-3 space-x-4 flex-none overflow-auto">
-                        <div class="btn-2" @click="selectCategoryId('')"
-                            :class="categoryId == '' ? 'bg-blue-600 text-white' : ''">全部</div>
-                        <div v-for="(item, index) in categoryList" :key="index" @click="selectCategoryId(item.id)"
-                            class="btn-2" :class="categoryId == item.id ? 'bg-blue-600 text-white' : ''">
-                            {{ item.name }}
-                        </div>
-                    </div>
-                    <ul>
-                        <li v-for="(item, index) in articleList" :key="index" class="mt-4">
-                            <div class="border-b pb-2">
-                                <div class="flex relative">
-                                    <div class="flex-1 mr-2">
-                                        <nuxt-link target="_blank" :to="'/read/post/' + item.id">
-                                            <p class=" font-semibold text-base h-8 leading-8 w-full overflow-y-hidden"
-                                                v-text="item.title">
-                                            </p>
-                                        </nuxt-link>
-                                        <p class=" custom-font-14 leading-8 overflow-hidden h-6 text-gray-400 mb-2"
-                                            v-text="item.summary"></p>
-                                        <ul class="flex items-center mt-6">
-                                            <li class="flex items-center leading-4">
-                                                <span class="flex items-center iconfont icon-browse" />
-                                                <span class="custom-font-12 ml-1" v-text="item.viewCount"></span>
-                                            </li>
-                                            <!-- <li class="flex items-center leading-4 ml-1">
-                                                <span class="flex items-center iconfont icon-good" /><span
-                                                    class="custom-font-12 ml-1">1887</span>
-                                            </li>
-                                            <li class="flex items-center leading-4 ml-1">
-                                                <span class="flex items-center iconfont icon-comments" /><span
-                                                    class="custom-font-12 ml-1">1887</span>
-                                            </li> -->
-                                        </ul>
-                                    </div>
-                                    <!-- <div v-if="item.image == ''" class="flex-none w-32 h-24"></div> -->
-                                    <img v-if="item.image != ''" class="w-32 h-24 right-0 object-contain" :src="item.image"
-                                        alt="" srcset="" />
-                                </div>
-                            </div>
-                        </li>
-                        <li v-show="empty" class="mt-4 text-center">
-                            <p>到底了</p>
-                        </li>
-                        <div v-show="loading" class="w-full animate-pulse">
-
-                            <div class="flex items-center mb-6">
-                                <div class="w-8/12">
-                                    <div class="w-10/12 h-6 bg-gray-200 my-3">
-                                    </div>
-                                    <div class="w-10/12 h-6 bg-gray-200 my-3">
-                                    </div>
-                                </div>
-                                <div class="flex-1 bg-gray-200 w-2/12 md:w-1/12 h-16">
-                                </div>
-                            </div>
-                            <div class="flex items-center mb-6">
-                                <div class="w-8/12">
-                                    <div class="w-10/12 h-6 bg-gray-200 my-3">
-                                    </div>
-                                    <div class="w-10/12 h-6 bg-gray-200 my-3">
-                                    </div>
-                                </div>
-                                <div class="flex-1 bg-gray-200 w-2/12 md:w-1/12 h-16">
-                                </div>
-                            </div>
-                        </div>
+                    <ul class="mt-1">
+                        <ArticleListItem v-for="item in articleList" :key="item.id" :article="item" />
                     </ul>
+
+                    <p v-if="!articleList.length && !loading" class="py-14 text-center text-sm text-gray-400">
+                        暂无文章
+                    </p>
+
+                    <div v-if="loading" class="mt-1" aria-hidden="true">
+                        <div v-for="i in 2" :key="i"
+                            class="flex gap-4 border-b border-gray-100 py-5 last:border-b-0 sm:gap-5">
+                            <div class="min-w-0 flex-1 space-y-3">
+                                <div class="h-5 w-8/12 animate-pulse rounded bg-gray-100"></div>
+                                <div class="h-4 w-full animate-pulse rounded bg-gray-100"></div>
+                                <div class="h-3 w-5/12 animate-pulse rounded bg-gray-100"></div>
+                            </div>
+                            <div class="h-20 w-28 shrink-0 animate-pulse rounded-lg bg-gray-100 sm:h-24 sm:w-36"></div>
+                        </div>
+                    </div>
+
+                    <div v-if="empty && !loading" class="flex items-center gap-3 py-10 text-xs text-gray-400">
+                        <span class="h-px flex-1 bg-gray-100"></span>
+                        已经到底了
+                        <span class="h-px flex-1 bg-gray-100"></span>
+                    </div>
                 </div>
 
                 <!-- 广而告之 -->
@@ -156,11 +129,11 @@ let rightNormalContainer = ref<HTMLInputElement>();
 let rightFixedContainer = ref<HTMLInputElement>()
 
 let categoryResult = await api.article.getCategories();
-categoryList.value = categoryResult.data;
+categoryList.value = categoryResult?.data ?? [];
 
 const { data: articleData, pending, refresh, error } = await useAsyncData("read_GetList", () => api.article.getList(1, 10, articleParams.value));
-if (articleData.value!.success) {
-    articleList.value = articleList.value.concat(articleData.value!.data.content)
+if (articleData.value?.success) {
+    articleList.value = articleList.value.concat(articleData.value.data.content)
 }
 
 onMounted(async () => {
@@ -186,7 +159,7 @@ async function selectCategoryId(id: string) {
         articleParams.value = categoryId.value;
     }
     await refresh();
-    articleList.value = articleData.value!.data.content
+    articleList.value = articleData.value?.data?.content ?? []
     loading.value = false
 }
 
@@ -252,24 +225,12 @@ useHead({
 })
 </script>
 
-<style>
-.RightFixedContainer-absolute {
-    @apply absolute;
+<style scoped>
+.category-scroll {
+    scrollbar-width: none;
 }
 
-.RightFixedContainer-fixed {
-    @apply fixed top-2;
-}
-
-.border-t-1 {
-    border-top-width: 1px;
-}
-
-.icon-arrow-down {
-    @apply duration-100;
-}
-
-.reverse {
-    transform: rotate(180deg);
+.category-scroll::-webkit-scrollbar {
+    display: none;
 }
 </style>
