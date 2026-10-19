@@ -172,7 +172,7 @@ import { nanoid } from "nanoid";
 import Vue from "vue";
 import { TextUtils } from "~/utils/TextUtils";
 import { userStore } from '~/stores/user';
-import request from "~~/api/request";
+import request from "~/api/request";
 const store = userStore();
 
 const isRegister = ref(false);

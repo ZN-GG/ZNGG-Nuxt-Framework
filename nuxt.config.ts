@@ -1,6 +1,5 @@
-// https://v3.nuxtjs.org/api/configuration/nuxt-config
+// https://nuxt.com/docs/4.x/api/configuration/nuxt-config
 import wasm from "vite-plugin-wasm";
-import topLevelAwait from "vite-plugin-top-level-await";
 
 
 export default defineNuxtConfig({
@@ -10,18 +9,9 @@ export default defineNuxtConfig({
       charset: 'utf-8',
     }
   },
-  typescript: {
-    shim: false
-  },
   modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/google-adsense'],
   css: ['~/assets/css/tailwind.css'],
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
-  },
-  'google-adsense': {
+  googleAdsense: {
     id: 'ca-pub-6667301035180632',
   },
   build: {
@@ -36,8 +26,7 @@ export default defineNuxtConfig({
       ]
     },
     plugins: [
-      wasm(),
-      topLevelAwait()
+      wasm()
     ],
     build: {
       // chunkSizeWarningLimit: 4096

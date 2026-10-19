@@ -75,8 +75,6 @@
 import "highlight.js/styles/atom-one-dark.css";
 import zhHans from 'bytemd/locales/zh_Hans.json';
 import { api } from '~/api/api';
-import router from "~~/plugins/router";
-import { dataToEsm } from "@rollup/pluginutils";
 
 const { Editor } = await import("@bytemd/vue-next");
 

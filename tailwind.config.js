@@ -1,12 +1,12 @@
-module.exports = {
+import typography from '@tailwindcss/typography'
+
+export default {
   mode: 'jit',
   content: [
-    './components/**/*.{vue,js}',
-    './layouts/**/*.vue',
-    './pages/**/*.vue',
-    './pages/**/**/*.vue',
-    './plugins/**/*.{js,ts}',
-    //'./nuxt.config.{js,ts}',
+    './app/components/**/*.{vue,js,ts}',
+    './app/layouts/**/*.vue',
+    './app/pages/**/*.vue',
+    './app/plugins/**/*.{js,ts}',
   ],
   theme: {
     container: {
@@ -21,8 +21,8 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    require('@tailwindcss/typography'),
-    function ({ addComponents }){
+    typography,
+    function ({ addComponents }) {
       addComponents({
         '.container': {
           maxWidth: '100%', //tailwind是mobile优先，所以首先定义缺省宽度为mobile端的宽度

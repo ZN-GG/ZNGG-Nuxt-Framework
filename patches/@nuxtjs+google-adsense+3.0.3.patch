@@ -1,0 +1,11 @@
+diff --git a/node_modules/@nuxtjs/google-adsense/dist/runtime/components/Adsbygoogle.vue b/node_modules/@nuxtjs/google-adsense/dist/runtime/components/Adsbygoogle.vue
+index 6a1a0a5..68759d4 100644
+--- a/node_modules/@nuxtjs/google-adsense/dist/runtime/components/Adsbygoogle.vue
++++ b/node_modules/@nuxtjs/google-adsense/dist/runtime/components/Adsbygoogle.vue
+@@ -65,5 +65,5 @@ defineExpose({ isUnfilled, updateAd, showAd });
+ </template>
+ 
+ <style scoped>
+-.hide-filled{display:none important!}
++.hide-filled{display:none !important}
+ </style>
