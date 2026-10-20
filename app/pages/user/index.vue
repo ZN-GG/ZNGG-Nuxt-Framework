@@ -1,15 +1,14 @@
 <template>
-    <div class="mt-20">
-        <div class="flex container mx-auto my-6 px-4">
-            <div class="w-2/12">
-                <div class="w-full bg-white rounded p-4">
-                    <UserLeftContents />
-                </div>
-            </div>
-            <div class="w-10/12">
-                <div class="w-full bg-white rounded mx-2 p-4">
-                    <NuxtPage />
-                </div>
+    <div class="mx-auto container px-4 my-8 min-h-screen mt-20">
+        <PageBreadcrumb :items="[{ label: '个人中心' }]" class="mb-2" />
+
+        <div class="grid grid-cols-1 gap-4 lg:grid-cols-[220px_minmax(0,1fr)]">
+            <aside class="h-fit rounded-md bg-white p-4">
+                <UserLeftContents />
+            </aside>
+
+            <div class="min-w-0">
+                <NuxtPage />
             </div>
         </div>
     </div>
@@ -22,15 +21,10 @@ definePageMeta({
 })
 
 useHead({
-    title: "用户中心",
-    titleTemplate: (title) => `${title} - 持续高质量内容输出`,
+    title: "个人中心",
+    titleTemplate: (title) => `${title} - ZNGG在线工具`,
     meta: [
-        { name: 'Keywords', content: '前端技术分享，后端技术分享，在线小工具，设计技巧' },
-        { name: 'description', content: 'ZNGG在线工具是一个持续提供高质量内容输出平台，并将输出内容转变为成果，提供各种各样的在线工具。' }
+        { name: 'description', content: 'ZNGG在线工具个人中心，管理文章、收藏与账号信息。' }
     ],
 })
 </script>
-
-<style lang='postcss' scoped>
-</style>
-

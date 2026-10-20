@@ -2,28 +2,92 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --canvas: 220 20% 98%;
+    --surface: 0 0% 100%;
+    --surface-muted: 220 14% 96%;
+    --ink: 220 17% 14%;
+    --muted: 218 15% 36%;
+    --line: 230 12% 91%;
+    --accent: 221 100% 54%;
+    --accent-strong: 220 100% 63%;
+    --accent-soft: 215 100% 96%;
+    --info: 221 100% 54%;
+    --success: 134 100% 35%;
+    --warning: 29 100% 50%;
+    --danger: 0 90% 60%;
+    --shadow-card: 0 0 0 rgba(0, 0, 0, 0);
+    --shadow-pop: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .dark {
+    --canvas: 240 5% 10%;
+    --surface: 240 3% 14%;
+    --surface-muted: 240 2% 17%;
+    --ink: 220 14% 96%;
+    --muted: 218 9% 57%;
+    --line: 240 2% 20%;
+    --accent: 220 100% 62%;
+    --accent-strong: 220 100% 71%;
+    --accent-soft: 222 43% 20%;
+    --info: 220 100% 62%;
+    --success: 137 69% 45%;
+    --warning: 31 100% 59%;
+    --danger: 2 91% 67%;
+    --shadow-card: 0 0 0 rgba(0, 0, 0, 0);
+    --shadow-pop: 0 4px 10px rgba(0, 0, 0, 0.36);
+  }
+
+  * {
+    border-color: hsl(var(--line));
+  }
+
+  html {
+    background: hsl(var(--canvas));
+    color: hsl(var(--ink));
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    background: hsl(var(--canvas));
+    color: hsl(var(--ink));
+    overflow-y: scroll;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: hsl(var(--accent) / 0.28);
+    color: hsl(var(--ink));
+  }
+}
+
 @layer components {
   .btn-normal {
-    @apply text-sm bg-blue-600 text-white px-3 py-2 rounded;
+    @apply inline-flex items-center justify-center gap-2 rounded-control bg-accent px-3.5 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-strong disabled:pointer-events-none disabled:opacity-50;
   }
 
   .btn-1 {
-    @apply bg-gray-100 custom-font-12 leading-5 py-1 px-4 rounded-full whitespace-nowrap cursor-pointer hover:bg-blue-600 hover:text-white mx-1;
+    @apply bg-surface-muted custom-font-12 leading-5 py-1 px-4 rounded-control whitespace-nowrap cursor-pointer text-muted transition-colors hover:bg-accent-soft hover:text-accent mx-1;
   }
 
   .btn-1 .active {
-    @apply bg-blue-600 text-white;
+    @apply bg-accent text-white;
   }
 
   .btn-2 {
-    @apply bg-gray-100 custom-font-12 leading-5 py-1 px-4 rounded-md whitespace-nowrap cursor-pointer hover:bg-blue-600 hover:text-white mx-1;
+    @apply bg-surface-muted custom-font-12 leading-5 py-1 px-4 rounded-control whitespace-nowrap cursor-pointer text-muted transition-colors hover:bg-accent-soft hover:text-accent mx-1;
   }
 
-  .btn-3 {
-  }
-
-  .li-1 {
-    @apply hover:bg-gray-100 px-2 py-1;
+  .surface-card {
+    @apply rounded-card border border-line bg-surface shadow-card;
   }
 
   .tool-box {
@@ -33,7 +97,7 @@
   .tool-icon {
     @apply w-12 h-12;
   }
-  .tool-title {    
+  .tool-title {
     @apply text-center custom-font-14 leading-6 md:mt-2;
   }
   .tool-des {
@@ -45,38 +109,29 @@
       @apply bg-blue-600 duration-200 shadow-2xl;
       transform: translateY(-6px);
     }
-  
+
     .tool-box:hover .tool-icon {
       @apply hidden;
     }
-  
+
     .tool-box:hover .tool-title {
       @apply text-white custom-font-16;
     }
-  
+
     .tool-box:hover .tool-des {
       @apply text-white custom-font-12 block;
     }
 
-    .nav-item-anim:hover{
+    .nav-item-anim:hover {
       @apply shadow-xl duration-200;
       transform: translateY(-4px);
     }
   }
-
-
-}
-
-html {
-  background: #f3f4f6;
-}
-
-body {
-  overflow-y: scroll;
 }
 
 svg {
-  display: inline;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .min-h-20 {
@@ -123,58 +178,68 @@ svg {
   backdrop-filter: saturate(180%) blur(25px);
 }
 
-
 @keyframes right-to-left {
   0% {
-      transform: translateX(120vw)
+    transform: translateX(120vw);
   }
 
   100% {
-      transform: translateX(0px)
+    transform: translateX(0px);
   }
 }
+
 @keyframes to-show {
   0% {
-      opacity: 0;
+    opacity: 0;
   }
 
   100% {
-     opacity: 1;
+    opacity: 1;
   }
 }
+
 @keyframes to-hidden {
   0% {
-      opacity: 1;
+    opacity: 1;
   }
 
   100% {
-     opacity: 0;
+    opacity: 0;
   }
 }
+
 .animation-mobile-show {
   animation-name: right-to-left;
   animation-duration: 0.4s;
 }
+
 .animation-mobile-hidden {
-  transform: translate3d(100%,0,0);
-  transition: transform .3s ease-in-out;
+  transform: translate3d(100%, 0, 0);
+  transition: transform 0.3s ease-in-out;
 }
+
 .animation-mobile-bg-show {
   animation-name: to-show;
   animation-duration: 0.4s;
 }
+
 .animation-mobile-bg-hidden {
   opacity: 0;
-  transition: opacity .2s cubic-bezier(0,0,.2,1) 0ms;
+  transition: opacity 0.2s cubic-bezier(0, 0, 0.2, 1) 0ms;
 }
 
 @media screen and (max-width: 640px) {
   .tool-border {
     padding-bottom: 120%;
   }
+
   .tool-title {
     width: 80%;
   }
+}
+
+#markdown-body :is(h1, h2, h3, h4, h5, h6) {
+  scroll-margin-top: 5rem;
 }
 
 .markdown-body ul {
@@ -185,38 +250,76 @@ svg {
   list-style: decimal;
 }
 
+.dark .markdown-body {
+  color: hsl(var(--ink));
+}
+
+.dark .markdown-body a {
+  color: hsl(var(--info));
+}
+
+.dark .markdown-body pre {
+  background: hsl(var(--surface-muted));
+}
+
+/* Compatibility bridge for legacy pages that still use literal utility colors. */
+.dark .bg-white {
+  background-color: hsl(var(--surface)) !important;
+}
+
+.dark .bg-gray-50,
+.dark .bg-gray-100 {
+  background-color: hsl(var(--surface-muted)) !important;
+}
+
+.dark .text-gray-800,
+.dark .text-gray-700,
+.dark .text-gray-600 {
+  color: hsl(var(--ink)) !important;
+}
+
+.dark .text-gray-500,
+.dark .text-gray-400 {
+  color: hsl(var(--muted)) !important;
+}
+
+.dark .border-gray-100,
+.dark .border-gray-200 {
+  border-color: hsl(var(--line)) !important;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
-  background-color: #f5f5f5;
+  background-color: hsl(var(--surface-muted));
 }
+
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3) inset;
-  background-color: #f5f5f5;
+  background-color: hsl(var(--surface-muted));
 }
+
 ::-webkit-scrollbar-thumb {
   border-radius: 3px;
-  -webkit-box-shadow: none !important;
-}
-::-webkit-scrollbar-thumb {
-  background-color: #999999 !important;
+  background-color: hsl(var(--muted) / 0.55) !important;
   background-image: none !important;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #dd5e89 !important;
+  background-color: hsl(var(--accent) / 0.8) !important;
 }
 
-::selection {
-  background: #d3d3d3;
-  color: #555;
+:focus-visible {
+  outline: 2px solid hsl(var(--accent));
+  outline-offset: 2px;
 }
 
-::-moz-selection {
-  background: #d3d3d3;
-  color: #555;
-}
-
-::-webkit-selection {
-  background: #d3d3d3;
-  color: #555;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -37,7 +37,7 @@
 import { api } from "~/api/api";
 
 const { data: friendLinks, pending, refresh, error } = await useAsyncData("web_FriendLinks", () => api.web.getFriendLinks());
-if (friendLinks.value!.success) {
+if (friendLinks.value?.success) {
     console.log(friendLinks.value);
     
 }

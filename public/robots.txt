@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /user
+Disallow: /writer
+
+Sitemap: https://www.zngg.net/api/site.xml

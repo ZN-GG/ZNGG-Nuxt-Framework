@@ -60,7 +60,7 @@ import { api } from "~/api/api";
 let categoryId = ref(0)
 
 const { data: navLinks, pending, refresh, error } = await useAsyncData("web_NavLinks", () => api.web.getNavInfo());
-if (navLinks.value!.success) {
+if (navLinks.value?.success) {
     console.log(navLinks.value);
 
 }

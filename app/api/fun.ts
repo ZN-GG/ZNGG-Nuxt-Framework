@@ -12,8 +12,4 @@ export const fun = {
         return http.get("/api/common/whois/" + domain)
     },
 
-    wordConvert(domain: string): Promise<ApiResponse> {
-        return http.post("/api/common//office/wordConvert")
-    }
-
 }

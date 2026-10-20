@@ -2,11 +2,11 @@
     <div ref="html">
         <div class="mx-auto container px-4 my-8">
             <div class="flex flex-wrap relative">
-                <div class="bg-white p-6 rounded-md mt-4 w-full lg:w-8/12" ref="leftNormalContainer">
-                    <div class="flex items-center justify-between gap-3">
-                        <div class="flex items-center gap-2.5">
-                            <span class="h-5 w-1 rounded-full bg-blue-600"></span>
-                            <p class="text-2xl font-semibold">最新文章</p>
+                <div class="bg-white px-6 pb-6 pt-5 rounded-md mt-4 w-full lg:w-8/12" ref="leftNormalContainer">
+                    <div class="flex items-center justify-between gap-3 border-b border-gray-100 pb-5">
+                        <div class="flex items-center gap-2">
+                            <span class="-ml-3 h-5 w-1 shrink-0 rounded-full bg-blue-600"></span>
+                            <p class="text-2xl font-semibold text-gray-800">最新文章</p>
                         </div>
                         <button type="button" @click="showCategory()"
                             class="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-base text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600"
@@ -35,7 +35,8 @@
                     </div>
 
                     <ul class="mt-1">
-                        <ArticleListItem v-for="item in articleList" :key="item.id" :article="item" />
+                        <ArticleListItem v-for="item in articleList" :key="item.id" :article="item"
+                            :category-name="categoryNameOf(item)" />
                     </ul>
 
                     <p v-if="!articleList.length && !loading" class="py-14 text-center text-sm text-gray-400">
@@ -63,25 +64,25 @@
 
                 <!-- 广而告之 -->
                 <div class="mt-4 hidden lg:block w-full lg:w-4/12 absolute right-0">
-                    <div class="pl-6 w-full" ref="rightNormalContainer">
-                        <div class="w-full py-6 rounded text-center bg-gradient-to-r from-cyan-500 to-blue-500">
+                    <div class="pl-4 w-full" ref="rightNormalContainer">
+                        <div class="w-full py-5 rounded text-center bg-gradient-to-r from-cyan-500 to-blue-500">
                             <nuxt-link to="/nav">
                                 <div class="mx-auto">
-                                    <p class="text-2xl font-bold text-white">优质网址导航</p>
+                                    <p class="text-xl font-semibold text-white">优质网址导航</p>
                                 </div>
                             </nuxt-link>
                         </div>
-                        <div class="w-full my-2 py-6 rounded text-center bg-gradient-to-r from-violet-500 to-fuchsia-500">
+                        <div class="w-full my-4 py-5 rounded text-center bg-gradient-to-r from-violet-500 to-fuchsia-500">
                             <nuxt-link to="/tool/detail/FlvPlayer">
                                 <div class="mx-auto">
-                                    <p class="text-2xl font-bold text-white">FLV播放器</p>
+                                    <p class="text-xl font-semibold text-white">FLV播放器</p>
                                 </div>
                             </nuxt-link>
                         </div>
-                        <div class="w-full my-2 py-6 rounded text-center bg-gradient-to-r from-orange-500 to-fuchsia-700">
+                        <div class="w-full my-4 py-5 rounded text-center bg-gradient-to-r from-orange-500 to-fuchsia-700">
                             <nuxt-link to="/tool/detail/ScreenRec">
                                 <div class="mx-auto">
-                                    <p class="text-2xl font-bold text-white">PC在线录屏</p>
+                                    <p class="text-xl font-semibold text-white">PC在线录屏</p>
                                 </div>
                             </nuxt-link>
                         </div>
@@ -91,18 +92,15 @@
                     </div>
                     <div v-bind:style="{
                         width: rightFixedContainerWidth,
-                    }" class="h-20 pl-6 my-4 hidden lg:block w-full" ref="rightFixedContainer">
+                    }" class="h-20 pl-4 my-4 hidden lg:block w-full" ref="rightFixedContainer">
                         <div class="bg-white rounded-md p-6">
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center">
-                                    <p class="font-semibold text-2xl">AD</p>
-                                    <p class=" hidden lg:inline leading-8 mx-4 text-sm text-gray-400 ">
-                                        广而告之
-                                    </p>
+                            <div class="flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="-ml-3 h-4 w-1 shrink-0 rounded-full bg-blue-600"></span>
+                                    <p class="text-lg font-semibold text-gray-800">AD</p>
+                                    <p class="hidden text-xs text-gray-400 lg:inline">广而告之</p>
                                 </div>
-                                <div>
-                                    <div class="btn-1">更多</div>
-                                </div>
+                                <div class="btn-1">更多</div>
                             </div>
                         </div>
                     </div>
@@ -130,6 +128,10 @@ let rightFixedContainer = ref<HTMLInputElement>()
 
 let categoryResult = await api.article.getCategories();
 categoryList.value = categoryResult?.data ?? [];
+
+function categoryNameOf(article: any) {
+    return categoryList.value.find(category => String(category.id) === String(article.categoryId))?.name || ''
+}
 
 const { data: articleData, pending, refresh, error } = await useAsyncData("read_GetList", () => api.article.getList(1, 10, articleParams.value));
 if (articleData.value?.success) {

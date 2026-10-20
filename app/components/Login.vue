@@ -52,7 +52,7 @@
                   " />
                 <img class="h-9 flex-1" @click="refreshCaptcha()" :src="captchaUrlPic" crossorigin="anonymous" />
             </div>
-            <button class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 my-2" @click="login()">
+            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 my-2 rounded-sm" @click="login()">
                 登陆
             </button>
             <div class="mt-2 flex justify-between">
@@ -149,7 +149,7 @@
                   " />
                 <img class="h-9 flex-1" @click="refreshCaptcha()" :src="captchaUrlPic" crossorigin="anonymous" />
             </div>
-            <button class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 my-2" @click="register()">
+            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 my-2 rounded-sm" @click="register()">
                 注册
             </button>
 
@@ -243,8 +243,12 @@ async function login() {
         $toast.success(result.message);
         token.value = (result.data.password)
         store.$patch({
-            isLogin: true
+            isLogin: true,
+            info: null,
+            infoLoaded: false,
         })
+        await nextTick()
+        store.loadInfo()
         close();
     } else {
         $toast.error(result.message);

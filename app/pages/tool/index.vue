@@ -1,21 +1,17 @@
 <template>
     <div class="mx-auto container px-4 my-8 min-h-screen mt-20">
-        <div class="bg-white p-6 rounded-md mt-8 mb-4">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center">
-                    <p class="font-semibold text-2xl">在线工具</p>
-                </div>
-                <div class="flex">
-                    <div class="hidden md:flex">
-                        <div class="btn-1" :class="categoryId == '' ? 'bg-blue-600 text-white' : ''"
-                            @click="selectCategoryId('')">
-                            全部
-                        </div>
-                        <div class="btn-1" :class="categoryId == item.id ? 'bg-blue-600 text-white' : ''"
-                            v-for="(item, index) in toolCategoryList" :key="index" @click="selectCategoryId(item.id)">
-                            {{ item.name }}
-                        </div>
-                    </div>
+        <div class="bg-white px-6 pb-6 pt-5 rounded-md mt-8 mb-4">
+            <div class="flex flex-wrap items-center justify-between gap-5">
+                <p class="text-2xl font-semibold text-gray-800">在线工具</p>
+                <div
+                    class="category-scroll flex w-full gap-2 overflow-x-auto pb-1 md:w-auto md:flex-wrap md:justify-end md:overflow-visible md:pb-0">
+                    <button type="button" :class="filterClass(categoryId == '')" @click="selectCategoryId('')">
+                        全部
+                    </button>
+                    <button type="button" v-for="(item, index) in toolCategoryList" :key="index"
+                        :class="filterClass(categoryId == item.id)" @click="selectCategoryId(item.id)">
+                        {{ item.name }}
+                    </button>
                 </div>
             </div>
         </div>
@@ -77,6 +73,12 @@ onMounted(async () => {
 })
 
 
+function filterClass(active: boolean) {
+    return active
+        ? 'shrink-0 rounded-full border border-blue-600 bg-blue-600 px-4 py-1.5 text-sm font-medium text-white shadow-sm shadow-blue-600/20 transition-colors duration-200 hover:bg-blue-700'
+        : 'shrink-0 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm text-gray-600 transition-colors duration-200 hover:border-blue-200 hover:bg-blue-50/60 hover:text-blue-600'
+}
+
 async function selectCategoryId(id: string) {
     page.value = 2;
     empty.value = false
@@ -103,3 +105,13 @@ useHead({
     ],
 })
 </script>
+
+<style scoped>
+.category-scroll {
+    scrollbar-width: none;
+}
+
+.category-scroll::-webkit-scrollbar {
+    display: none;
+}
+</style>

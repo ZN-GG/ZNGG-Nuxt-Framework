@@ -1,5 +1,5 @@
 <template>
-    <header class="shadow-md fixed top-0 w-full z-20">
+    <header class="bg-white border-b border-gray-100 shadow-sm fixed top-0 w-full z-20">
         <div class="flex px-1 md:px-6 py-4 justify-between items-center">
             <div class="flex items-center">
                 <div class="font-black inline text-xl cursor-pointer">
@@ -17,10 +17,14 @@
             <div class="flex items-center">
                 <!-- <search-box class="block rounded-md" /> -->
                 <div class=" login-group flex mx-2 lg:mx-4 custom-font-14 items-center leading-8">
+                    <NuxtLink to="/search" aria-label="搜索" title="搜索"
+                        class="mx-1 inline-flex h-8 w-8 items-center justify-center rounded-md bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 hover:text-blue-600">
+                        <Search class="h-4 w-4" aria-hidden="true" />
+                    </NuxtLink>
                     <i class="md:hidden cursor-pointer select-none mx-1 px-3 md:px-5 iconfont icon-ego-menu rounded-md"
                         @click="toggleMobileMenu()"></i>
                     <p @click="login()" v-show="!loginStatus"
-                        class="cursor-pointer select-none mx-1 px-3 md:px-5 text-white bg-blue-500 rounded-md ">
+                        class="cursor-pointer select-none mx-1 px-3 md:px-5 text-white bg-blue-600 rounded-md ">
                         登录
                     </p>
                     <nuxt-link to="/user" v-show='loginStatus'
@@ -54,31 +58,32 @@
 </template>
 
 <script setup lang="ts">
-import { vModelCheckbox } from 'nuxt/dist/app/compat/capi';
 import { ref } from 'vue';
+import { Search } from '@lucide/vue';
 import { userStore } from '~/stores/user';
 // import SearchBox from '~/components/SearchBox.vue';
 
 const token = useCookie("token")
 const store = userStore();
-const loginStatus = ref(false)
-const mobileMenuStatus = ref(false)
-
-if (typeof (token.value) != 'undefined') {
-    loginStatus.value = true;
+if (token.value) {
+    store.isLogin = true
 }
-
-watch(() => store.isLogin, (newStatus, oldStatus) => {
-    loginStatus.value = newStatus;
-}, {
-    deep: true
-})
+const loginStatus = computed(() => store.isLogin)
+const mobileMenuStatus = ref(false)
 
 
 const dataList = ref([
     {
         link: "tool",
         name: "工具",
+    },
+    {
+        link: "project",
+        name: "项目",
+    },
+    {
+        link: "download",
+        name: "下载",
     },
     {
         link: "read",
@@ -123,7 +128,7 @@ header {
 .menu>li:hover,
 .router-link-active,
 .router-link-exact-active {
-    color: #3955f6;
+    color: #165DFF;
     font-weight: 900;
 }
 

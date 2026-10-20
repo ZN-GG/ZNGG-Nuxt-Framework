@@ -1,238 +1,129 @@
 <template>
-    <div class="">
-        <div class="convert-bg"></div>
-        <div class="office-bg pb-28">
-            <div class="container mx-auto">
-                <div class="bg-white px-6 rounded-2xl relative shadow-lg">
-                    <div class="pt-4">
-                        <div class="text-center">
-                            <h1 class="text-2xl font-bold">Word 转 PDF</h1>
-                        </div>
-                    </div>
-                    <div v-show="fileList.length == 0" class="upload-box py-6">
-                        <div class="border-gray-500 border-2 border-dashed relative h-72">
-                            <div class="in-upload-box">
-                                <img src="/img/office/upload-btn.svg" class="mx-auto w-32 h-32 mb-4" alt="">
-                            </div>
-                            <input ref="inputElement" type="file" id="file"
-                                accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                                style="opacity: 0;position: absolute;cursor: pointer;width: 100%;height: 100%;left: 0;top: 0;"
-                                @change="selectFile">
-                            <div class="in-upload-box">
-                                <div @click="inputElement?.click"
-                                    class="mt-32 btn-3 bg-blue-600 text-white py-2 text-center hover:bg-blue-800 cursor-pointer px-8">
-                                    选择文件
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div v-show="fileList.length > 0" class="py-6">
-                        <div class="border-gray-500 border-2 border-dashed relative p-4 md:p-6">
-                            <ul v-if="!isConverting">
-                                <li v-for="(item, index) in fileList"
-                                    class="flex flex-wrap border-b-2 py-1 w-full mb-2 justify-between">
-                                    <div class="w-full md:w-4/12 flex items-center">
-                                        <p class="font-bold break-words">{{ item.name }}</p>
-                                    </div>
-
-                                    <div v-show="item.status == 1" class="md:w-4/12 flex items-center justify-center"><i
-                                            class="iconfont icon-ok text-green-600"
-                                            style="font-size: 24px;"></i><span>&nbsp;上传完成</span></div>
-                                    <div v-show="item.status == 0" class="md:w-4/12 flex items-center justify-center"><i
-                                            class="iconfont icon-upload text-blue-600"
-                                            style="font-size: 24px;"></i><span>&nbsp;正在上传</span></div>
-
-                                    <div class="md:w-4/12 flex items-center justify-end"><i @click="deleteFile(index)"
-                                            class="iconfont icon-ashbin" style="font-size: 24px;"></i></div>
-                                </li>
-                            </ul>
-                            <ul v-show="isConverting">
-                                <li v-for="(item, index) in fileList"
-                                    class="flex flex-wrap border-b-2 py-1 w-full mb-2 justify-between">
-                                    <div class="w-full md:w-4/12 flex items-center">
-                                        <p class="font-bold break-words">{{ item.name }}</p>
-                                    </div>
-
-                                    <div v-show="item.status == 1" class="md:w-4/12 flex items-center justify-center"><i
-                                            class="iconfont icon-ok text-green-600"
-                                            style="font-size: 24px;"></i><span>&nbsp;转换完成</span></div>
-                                    <div v-show="item.status == 0" class="md:w-4/12 flex items-center justify-center"><i
-                                            class="iconfont icon-upload text-blue-600"
-                                            style="font-size: 24px;"></i><span>&nbsp;正在转换</span></div>
-
-                                    <div class="md:w-4/12 flex items-center justify-end"><a v-show="item.status == 1"
-                                            target="_blank"
-                                            :href="'https://api.zngg.net/api/common/download/taskTempFile/' + item.resultId + '/' + item.name.substring(0, item.name.lastIndexOf('.')) + '.pdf'"><i
-                                                class="iconfont icon-falling" style="font-size: 24px;"></i></a></div>
-                                </li>
-                            </ul>
-                            <div class="mt-24">
-                                <div v-show="!isDone" @click="convert"
-                                    class="bg-blue-600 text-white py-2 text-center hover:bg-blue-800 cursor-pointer px-8">
-                                    {{ isConverting ? "正在转换" : "开始转换" }}</div>
-                                <div v-show="isDone" @click="reset"
-                                    class="bg-gray-600 text-white py-2 text-center hover:bg-green-900 cursor-pointer px-8">
-                                    重新开始</div>
-                            </div>
-                        </div>
-                    </div>
-
+    <div class="convert-bg"></div>
+    <div class="office-bg pb-28">
+        <div class="container mx-auto">
+            <div class="bg-white px-6 rounded-2xl relative shadow-lg">
+                <div class="pt-4 text-center">
+                    <h1 class="text-2xl font-bold">Word 转 PDF</h1>
+                    <p class="mt-2 text-sm text-gray-500">
+                        仅支持 .docx，转换在浏览器本地完成，文件不会上传到服务器
+                    </p>
                 </div>
 
+                <div v-show="!fileName" class="upload-box py-6">
+                    <div class="border-gray-500 border-2 border-dashed relative h-72">
+                        <input ref="inputElement" type="file" accept=".docx" style="opacity: 0;position: absolute;cursor: pointer;width: 100%;height: 100%;left: 0;top: 0;"
+                            @change="selectFile">
+                        <div class="in-upload-box">
+                            <img src="/img/office/upload-btn.svg" class="mx-auto w-32 h-32 mb-4" alt="">
+                            <div @click="inputElement?.click()"
+                                class="btn-3 bg-blue-600 text-white py-2 text-center hover:bg-blue-800 cursor-pointer px-8">
+                                选择 .docx 文件
+                            </div>
+                        </div>
+                    </div>
+                    <p v-if="error" class="mt-4 text-center text-sm text-red-500">{{ error }}</p>
+                    <p class="mt-4 text-center text-xs text-gray-400">
+                        复杂排版（文本框、浮动图片、页眉页脚）可能无法完全还原
+                    </p>
+                </div>
+
+                <div v-show="fileName" class="py-6">
+                    <div class="flex flex-wrap items-center justify-between gap-3 border-b pb-3">
+                        <p class="min-w-0 break-words font-bold">{{ fileName }}</p>
+                        <div class="flex shrink-0 items-center gap-2">
+                            <button type="button" class="btn-1 px-4 py-2" @click="reset">重新选择</button>
+                            <button type="button"
+                                class="rounded bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-800 disabled:opacity-60"
+                                :disabled="rendering" @click="exportPdf">
+                                {{ rendering ? '渲染中...' : '导出 PDF' }}
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="mt-3 text-xs text-gray-400">
+                        点击“导出 PDF”后，在打印窗口的目标打印机中选择“另存为 PDF”。
+                    </p>
+                    <p v-if="error" class="mt-3 text-sm text-red-500">{{ error }}</p>
+
+                    <div id="docx-print-area" ref="previewRef" class="docx-preview-box mt-4 overflow-auto bg-gray-100 p-4">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 <script setup lang="ts">
-const { $toast } = useNuxtApp()
 const inputElement = ref<HTMLInputElement>()
-type FileBean = {
-    name: string,
-    suffixName: string,
-    // 0 正在，1成功，2上传
-    status: number,
-    fileId: string,
-    resultId: any
-}
-const isConverting = ref(false)
-const isDone = ref(false)
-const fileList = ref<FileBean[]>([])
+const previewRef = ref<HTMLElement>()
+const fileName = ref('')
+const rendering = ref(false)
+const error = ref('')
 
-async function selectFile(e: any) {
+async function selectFile(e: Event) {
+    const input = e.target as HTMLInputElement
+    const file = input.files?.[0]
+    input.value = ''
+    if (!file) return
 
-    if (e.target.files.length > 0) {
-        if (e.target.files.length > 0) {
-            const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.onloadend = async (evt: any) => {
-                let item: FileBean = {
-                    name: file.name,
-                    suffixName: '',
-                    status: 0,
-                    fileId: '',
-                    resultId: ''
-                };
-                fileList.value.push(item);
-                const index = fileList.value.length - 1;
-
-                let formData = new FormData();
-                formData.append("inputFile", file)
-
-                fetch("https://api.zngg.net/api/common/upload/tempFile", {
-                    method: "POST",
-                    body: formData,
-                }).then(res => res.json()).then(data => {
-                    if (data.success) {
-                        fileList.value[index].status = 1
-                        fileList.value[index].fileId = data.data.id
-                    } else {
-                        fileList.value[index].status = 2
-                    }
-                    console.log(fileList);
-
-                })
-
-            };
-            file && reader.readAsArrayBuffer(file);
-            inputElement.value!.value = ""
-
-        }
-    }
-}
-
-function convert() {
-    if (isConverting.value) {
+    if (!file.name.toLowerCase().endsWith('.docx')) {
+        error.value = '仅支持 .docx 文件，请先将 .doc 另存为 .docx'
         return
     }
-    isConverting.value = true;
-    isDone.value = false;
-    fileList.value.forEach((item, index) => {
-        if (fileList.value[index].status != 1) {
-            if (fileList.value[index].status == 0) {
-                $toast.error("还有文件未上传成功")
-            } else {
-                $toast.error("请删除上传失败的文件")
-            }
-            return
-        }
-        fileList.value[index].status = 0
-        fetch("https://api.zngg.net/api/common/office/wordToPDF/" + item.fileId, {
-            method: "GET",
-        }).then(res => res.json()).then(data => {
-            if (data.success) {
-                fileList.value[index].resultId = data.data.id
-                console.log(fileList.value)
-            } else {
+    if (file.size > 30 * 1024 * 1024) {
+        error.value = '文件过大，建议不超过 30MB'
+        return
+    }
 
-            }
-        })
-    })
-    queryTask()
+    fileName.value = file.name
+    error.value = ''
+    rendering.value = true
+    await nextTick()
+
+    try {
+        const { renderAsync } = await import('docx-preview')
+        const buffer = await file.arrayBuffer()
+        if (previewRef.value) {
+            previewRef.value.innerHTML = ''
+            await renderAsync(buffer, previewRef.value, undefined, {
+                inWrapper: false,
+                breakPages: true,
+                ignoreWidth: false,
+                ignoreHeight: false,
+                renderHeaders: true,
+                renderFooters: true,
+                experimental: true,
+            })
+        }
+    } catch (e) {
+        error.value = '文档解析失败，请确认文件为有效的 .docx'
+        console.error(e)
+    } finally {
+        rendering.value = false
+    }
 }
 
-
-function queryTask() {
-    setTimeout(() => {
-
-        let formData = new FormData();
-        let done = true;
-        fileList.value.forEach((item, index) => {
-            if (item.status == 0) {
-                formData.append("ids", item.resultId)
-                done = false
-            }
-        })
-        if (done) {
-            isDone.value = true;
-            return
-        }
-
-
-        fetch("https://api.zngg.net/api/common/taskDetail", {
-            method: "POST",
-            body: formData
-        }).then(res => res.json()).then(data => {
-            if (data.success) {
-                console.log(data);
-
-                data.data.forEach((item: any, index: number) => {
-                    if (item.state == 1) {
-                        fileList.value.forEach((list, i) => {
-                            if (list.resultId == item.id) {
-                                fileList.value[i].status = 1
-                            }
-                        })
-                    }
-                });
-
-            } else {
-
-            }
-            queryTask()
-        })
-    }, 2000);
-
+function exportPdf() {
+    if (!fileName.value || rendering.value) return
+    window.print()
 }
+
 function reset() {
-    isConverting.value = false
-    isDone.value = false
-    fileList.value = []
+    fileName.value = ''
+    error.value = ''
+    if (previewRef.value) {
+        previewRef.value.innerHTML = ''
+    }
 }
-async function deleteFile(index: number) {
-    fileList.value.splice(index, 1)
-}
-
 
 useHead({
     title: "Word转PDF",
     titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
     meta: [
-        { name: 'Keywords', content: 'word转pdf,word to pdf' },
-        { name: 'description', content: '在线Word转PDF工具，一个免费且无需登录的网页版word转pdf工具' }
+        { name: 'Keywords', content: 'word转pdf,word to pdf,docx转pdf' },
+        { name: 'description', content: '在线Word转PDF工具，仅支持 .docx，浏览器本地转换，文件不上传，免费无需登录。' }
     ],
 })
-
-
 </script>
 <style scoped>
 .convert-bg {
@@ -250,5 +141,47 @@ useHead({
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.docx-preview-box {
+    max-height: 70vh;
+}
+
+:deep(.docx-wrapper) {
+    background: transparent;
+    padding: 0;
+}
+
+:deep(.docx) {
+    margin: 0 auto 16px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+}
+
+@media print {
+    :global(body *) {
+        visibility: hidden;
+    }
+
+    #docx-print-area,
+    #docx-print-area * {
+        visibility: visible;
+    }
+
+    #docx-print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        max-height: none;
+        overflow: visible;
+        padding: 0;
+        background: #fff;
+    }
+
+    @page {
+        size: A4;
+        margin: 12mm;
+    }
 }
 </style>

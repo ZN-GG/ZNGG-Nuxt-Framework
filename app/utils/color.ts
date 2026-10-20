@@ -236,3 +236,71 @@ export const parseColor = (color: string): Hsva => {
 
   return
 }
+
+export function extractDominantColor(url: string): Promise<string> {
+  if (!import.meta.client || !url) {
+    return Promise.resolve('')
+  }
+
+  return new Promise(resolve => {
+    const image = new Image()
+    image.crossOrigin = 'anonymous'
+
+    image.onload = () => {
+      try {
+        const size = 32
+        const canvas = document.createElement('canvas')
+        canvas.width = size
+        canvas.height = size
+
+        const context = canvas.getContext('2d', { willReadFrequently: true })
+        if (!context) {
+          resolve('')
+          return
+        }
+
+        context.drawImage(image, 0, 0, size, size)
+        const { data } = context.getImageData(0, 0, size, size)
+        const buckets = new Map<string, { r: number, g: number, b: number, count: number }>()
+
+        for (let index = 0; index < data.length; index += 4) {
+          if (data[index + 3] < 160) continue
+
+          const r = data[index]
+          const g = data[index + 1]
+          const b = data[index + 2]
+          const key = `${r >> 4},${g >> 4},${b >> 4}`
+          const bucket = buckets.get(key)
+
+          if (bucket) {
+            bucket.r += r
+            bucket.g += g
+            bucket.b += b
+            bucket.count += 1
+          } else {
+            buckets.set(key, { r, g, b, count: 1 })
+          }
+        }
+
+        let dominant: { r: number, g: number, b: number, count: number } | null = null
+        for (const bucket of buckets.values()) {
+          if (!dominant || bucket.count > dominant.count) {
+            dominant = bucket
+          }
+        }
+
+        if (!dominant) {
+          resolve('')
+          return
+        }
+
+        resolve(`rgb(${Math.round(dominant.r / dominant.count)}, ${Math.round(dominant.g / dominant.count)}, ${Math.round(dominant.b / dominant.count)})`)
+      } catch {
+        resolve('')
+      }
+    }
+
+    image.onerror = () => resolve('')
+    image.src = url
+  })
+}
