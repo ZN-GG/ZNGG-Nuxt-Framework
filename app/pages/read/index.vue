@@ -34,6 +34,16 @@
                         </div>
                     </div>
 
+                    <div v-if="tags.length" class="mt-3 flex flex-wrap items-center gap-2 border-b border-gray-100 pb-4">
+                        <span class="text-xs text-gray-400">标签</span>
+                        <NuxtLink v-for="item in tags" :key="item.name"
+                            :to="'/read/tag/' + encodeURIComponent(item.name)"
+                            class="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600 transition-colors hover:bg-blue-600 hover:text-white">
+                            #{{ item.name }}
+                            <span class="ml-0.5 text-[10px] text-gray-400">{{ item.count }}</span>
+                        </NuxtLink>
+                    </div>
+
                     <ul class="mt-1">
                         <ArticleListItem v-for="item in articleList" :key="item.id" :article="item"
                             :category-name="categoryNameOf(item)" />
@@ -123,11 +133,15 @@ let categoryId = ref("")
 const articleParams = ref("")
 let articleList = ref<any[]>([])
 let categoryList = ref<any[]>([])
+let tags = ref<any[]>([])
 let rightNormalContainer = ref<HTMLInputElement>();
 let rightFixedContainer = ref<HTMLInputElement>()
 
 let categoryResult = await api.article.getCategories();
 categoryList.value = categoryResult?.data ?? [];
+
+const tagResult = await api.article.getTags();
+tags.value = (tagResult?.data ?? []).slice(0, 20);
 
 function categoryNameOf(article: any) {
     return categoryList.value.find(category => String(category.id) === String(article.categoryId))?.name || ''

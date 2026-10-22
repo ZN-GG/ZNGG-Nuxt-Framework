@@ -15,6 +15,14 @@ export const article = {
         return http.get("/portal/article/" + c + page + "/" + size)
     },
 
+    getTags(): Promise<ApiResponse> {
+        return http.get("/portal/article/tags")
+    },
+
+    getTagList(tag: string, page: number, size: number): Promise<ApiResponse> {
+        return http.get("/portal/article/tag/" + page + "/" + size, { tag })
+    },
+
     getCategories(): Promise<ApiResponse> {
         return http.get("/portal/article_category")
     },

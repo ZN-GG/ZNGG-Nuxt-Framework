@@ -72,6 +72,20 @@
                     </ul>
                 </div>
 
+                <div v-if="tags.length" class="mt-4 rounded-md bg-white p-5">
+                    <div class="flex items-center gap-2.5">
+                        <span class="h-5 w-1 rounded-full bg-purple-500"></span>
+                        <p class="text-lg font-semibold">热门标签</p>
+                    </div>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <NuxtLink v-for="item in tags" :key="item.name"
+                            :to="'/read/tag/' + encodeURIComponent(item.name)"
+                            class="rounded bg-gray-100 px-2.5 py-1 text-xs text-gray-600 transition-colors hover:bg-blue-600 hover:text-white">
+                            #{{ item.name }}
+                        </NuxtLink>
+                    </div>
+                </div>
+
                 <div v-if="relatedTools.length" class="mt-4 rounded-md bg-white p-5">
                     <div class="flex items-center gap-2.5">
                         <span class="h-5 w-1 rounded-full bg-emerald-500"></span>
@@ -130,6 +144,9 @@ const relatedTools = computed(() => (copy.value.toolSlugs ?? []).map(slug => ({
     slug,
     name: toolNames[slug] ?? slug,
 })))
+
+const { data: tagData } = await useAsyncData('read_CategoryTags', () => api.article.getTags())
+const tags = computed(() => (tagData.value?.data ?? []).slice(0, 20))
 
 const breadcrumbItems = computed(() => [
     { label: '文章', to: '/read' },

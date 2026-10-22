@@ -59,8 +59,11 @@
                                 </div>
                             </div>
                             <div v-if="labels.length" class="flex flex-wrap gap-2 pb-4">
-                                <span v-for="label in labels" :key="label"
-                                    class="rounded bg-gray-100 px-2.5 py-1 text-xs text-gray-500">#{{ label }}</span>
+                                <NuxtLink v-for="label in labels" :key="label"
+                                    :to="'/read/tag/' + encodeURIComponent(label)"
+                                    class="rounded bg-gray-100 px-2.5 py-1 text-xs text-gray-500 transition-colors hover:bg-blue-600 hover:text-white">
+                                    #{{ label }}
+                                </NuxtLink>
                             </div>
                             <div v-show="!isSuccessViewer && !isSpeader" class="block w-full animate-pulse">
                                 <div class="flex mt-6 mb-2">

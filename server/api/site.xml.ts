@@ -37,13 +37,14 @@ export default defineEventHandler(async (event) => {
     return date > latest ? date : latest
   }, '')
 
-  const [toolData, articleData, projectData, downloadData, articleCategories, toolCategories] = await Promise.all([
+  const [toolData, articleData, projectData, downloadData, articleCategories, toolCategories, articleTags] = await Promise.all([
     fetchPage(apiBase + '/portal/tool/1/99'),
     fetchPage(apiBase + '/portal/article/1/999'),
     fetchPage(apiBase + '/portal/project/1/999'),
     fetchPage(apiBase + '/portal/download/1/999'),
     fetchPage(apiBase + '/portal/article_category'),
     fetchPage(apiBase + '/portal/tool_category'),
+    fetchPage(apiBase + '/portal/article/tags'),
   ])
 
   const tools = toolData?.content ?? []
@@ -80,6 +81,11 @@ export default defineEventHandler(async (event) => {
   }
   for (const item of (toolCategories ?? [])) {
     addUrl('/tool/category/' + encodeURIComponent(String(item.id)), latestTool, 'weekly', '0.6')
+  }
+  for (const item of (Array.isArray(articleTags) ? articleTags : [])) {
+    if (item?.name) {
+      addUrl('/read/tag/' + encodeURIComponent(String(item.name)), latestArticle, 'weekly', '0.6')
+    }
   }
 
   addUrl('/read', latestArticle, 'weekly', '0.8')

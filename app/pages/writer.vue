@@ -39,6 +39,32 @@
                     </div>
                     <div class="flex my-4">
                         <div class="w-20 text-right mr-3">
+                            标签:
+                        </div>
+                        <div class="flex-1">
+                            <input v-model="article.labels"
+                                class="w-64 h-9 border-2 outline-none px-2 custom-font-14"
+                                placeholder="多个标签用逗号分隔，如 Vue,Nuxt" />
+                            <div v-if="labelList.length" class="mt-2 flex flex-wrap gap-1">
+                                <button v-for="label in labelList" :key="label" type="button" @click="removeLabel(label)"
+                                    class="rounded bg-blue-50 px-2 py-0.5 text-xs text-blue-600">
+                                    #{{ label }} ×
+                                </button>
+                            </div>
+                            <div v-if="tagOptions.length" class="mt-2 max-w-md">
+                                <p class="text-xs text-gray-400">常用标签</p>
+                                <div class="mt-1 flex flex-wrap gap-1">
+                                    <button v-for="item in tagOptions.slice(0, 15)" :key="item.name" type="button"
+                                        @click="addLabel(item.name)"
+                                        class="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-600 transition-colors hover:bg-blue-600 hover:text-white">
+                                        #{{ item.name }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex my-4">
+                        <div class="w-20 text-right mr-3">
                             状态:
                         </div>
                         <div><select v-model="article.state"
@@ -75,6 +101,7 @@
 import "highlight.js/styles/atom-one-dark.css";
 import zhHans from 'bytemd/locales/zh_Hans.json';
 import { api } from '~/api/api';
+import { splitTags } from '~/utils/tags';
 
 const { Editor } = await import("@bytemd/vue-next");
 
@@ -90,6 +117,7 @@ const themes = (await import('~/assets/theme')).themes;
 const route = useRoute()
 const { $toast } = useNuxtApp();
 const categoryList = ref<any[]>([])
+const tagOptions = ref<any[]>([])
 const article = ref({
     id: "",
     title: "",
@@ -181,6 +209,20 @@ useHead({
 
 let categoryResult = await api.article.getCategories();
 categoryList.value = categoryResult.data;
+
+const tagResult = await api.article.getTags();
+tagOptions.value = tagResult.success ? (tagResult.data ?? []) : [];
+
+const labelList = computed(() => splitTags(article.value.labels))
+
+function addLabel(label: string) {
+    if (labelList.value.includes(label)) return
+    article.value.labels = [...labelList.value, label].join(',')
+}
+
+function removeLabel(label: string) {
+    article.value.labels = labelList.value.filter(item => item !== label).join(',')
+}
 
 function handleChange(v: string) {
     article.value.content = v;
