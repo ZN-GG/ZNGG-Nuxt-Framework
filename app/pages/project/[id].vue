@@ -74,7 +74,8 @@
                             <p class="text-lg font-semibold">项目介绍</p>
                         </div>
                         <div class="max-w-3xl">
-                            <MarkdownContent v-if="item.content" :content="item.content" />
+                            <MarkdownContent v-if="item.content" :content="item.content"
+                                class="prose-p:my-2.5 prose-p:leading-7 prose-p:text-gray-600 prose-headings:text-gray-800 prose-h2:mb-2 prose-h2:mt-5 prose-h2:text-[15px] prose-h2:font-semibold prose-ul:my-3 prose-ol:my-3 prose-li:my-1 prose-li:leading-7 prose-li:text-gray-600 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:font-semibold prose-strong:text-gray-800 prose-code:rounded prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:text-[13px] prose-code:font-normal prose-code:text-gray-700 prose-code:before:content-none prose-code:after:content-none prose-pre:my-4 prose-blockquote:my-4 prose-img:my-4" />
                             <p v-else class="text-sm text-gray-400">暂无详细介绍</p>
                         </div>
                     </div>
