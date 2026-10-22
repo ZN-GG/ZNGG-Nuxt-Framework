@@ -647,13 +647,14 @@ function gradient(startColor: string, endColor: string, step: number) {
 }
 
 
-useHead({
+useToolSeo({
     title: "CSS渐变背景工具",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: 'CSSGradient渐变背景,css渐变背景工具,在线制作css渐变背景,渐变工具在线版,渐变色取样,linear-gradient' },
-        { name: 'description', content: '一个功能强大的css渐变背景在线生成工具，帮助你快速调试出漂亮的渐变色。' }
-    ],
+    description: "一个功能强大的css渐变背景在线生成工具，帮助你快速调试出漂亮的渐变色",
+    keywords: "CSSGradient渐变背景,css渐变背景工具,在线制作css渐变背景,渐变工具在线版,渐变色取样,linear-gradient",
+    path: "/tool/detail/CSSGradient",
+})
+
+useHead({
     link: [
         { rel: 'stylesheet', href: '/css/cssgradient.css' }
     ],

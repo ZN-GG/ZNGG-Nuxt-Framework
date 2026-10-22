@@ -9,7 +9,34 @@
     </nav>
 </template>
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
     items: { label: string, to?: string }[]
 }>()
+
+const config = useRuntimeConfig()
+const siteUrl = String(config.public.siteUrl || 'https://www.zngg.net').replace(/\/$/, '')
+
+const absoluteUrl = (value: string) => /^https?:\/\//.test(value) ? value : siteUrl + (value.startsWith('/') ? value : '/' + value)
+
+const jsonLd = computed(() => ({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+        { '@type': 'ListItem', position: 1, name: '首页', item: siteUrl + '/' },
+        ...props.items.map((item, index) => ({
+            '@type': 'ListItem',
+            position: index + 2,
+            name: item.label,
+            ...(item.to ? { item: absoluteUrl(item.to) } : {}),
+        })),
+    ],
+}))
+
+useHead({
+    script: [{
+        type: 'application/ld+json',
+        key: 'breadcrumb-jsonld',
+        innerHTML: computed(() => JSON.stringify(jsonLd.value).replace(/</g, '\\u003c')),
+    }],
+})
 </script>

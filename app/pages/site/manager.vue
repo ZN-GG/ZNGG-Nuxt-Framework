@@ -47,5 +47,6 @@ definePageMeta({
 useHead({
     title: '管理后台',
     titleTemplate: (title) => `${title} - ZNGG在线工具`,
+    meta: [{ name: 'robots', content: 'noindex, nofollow' }],
 })
 </script>

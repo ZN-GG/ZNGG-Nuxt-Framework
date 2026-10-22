@@ -237,13 +237,11 @@ function toCopy() {
 }
 
 
-useHead({
+useToolSeo({
     title: "CSS边框可视化",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: 'CSS边框可视化,CSS花式边框,CSS花式背景,css不规则背景,CSS边框可视化,自定义css边框样式' },
-        { name: 'description', content: '拖拽式可视化调整CSS边框样式，前端程序员必备的工具之一。css扇形背景、css圆角边框、css雨滴形状等自定义样式一键生成。' }
-    ],
+    description: "拖拽式可视化调整CSS边框样式，前端程序员必备的工具之一。css扇形背景、css圆角边框、css雨滴形状等自定义样式一键生成",
+    keywords: "CSS边框可视化,CSS花式边框,CSS花式背景,css不规则背景,CSS边框可视化,自定义css边框样式",
+    path: "/tool/detail/FancyBorderRadius",
 })
 </script>
 

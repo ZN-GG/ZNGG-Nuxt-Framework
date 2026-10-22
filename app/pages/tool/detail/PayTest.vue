@@ -98,13 +98,11 @@ function createOrder() {
     })
 }
 
-useHead({
+useToolSeo({
     title: "支付测试",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: '支付测试' },
-        { name: 'description', content: '用于测试扫码支付' }
-    ],
+    description: "在线测试扫码支付流程，验证支付接口与二维码展示效果",
+    keywords: "支付测试,扫码支付测试,支付接口调试",
+    path: "/tool/detail/PayTest",
 })
 
 </script>

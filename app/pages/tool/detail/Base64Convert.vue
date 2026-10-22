@@ -102,13 +102,11 @@ function toCopy() {
 }
 
 
-useHead({
+useToolSeo({
     title: "Base64编码解码",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: 'Base64,Base64编码,Base64解码,Base64加密,Base64解密' },
-        { name: 'description', content: '在线Base64编码解码 在线Base64加密解密工具。' }
-    ],
+    description: "在线Base64编码解码 在线Base64加密解密工具",
+    keywords: "Base64,Base64编码,Base64解码,Base64加密,Base64解密",
+    path: "/tool/detail/Base64Convert",
 })
 
 

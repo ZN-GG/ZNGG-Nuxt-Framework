@@ -293,12 +293,10 @@ function isMimeTypeSupported(mimeType: string): boolean {
 
 
 
-useHead({
+useToolSeo({
     title: "在线屏幕录制",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: '在线录屏,在线屏幕录制工具,免下载录制屏幕,不用下载就可以录屏的工具,RecordRTC,webrtc录屏' },
-        { name: 'description', content: '在线录屏工具，无需下载即可录制屏幕内容和麦克风的声音。4K免费在线录屏工具，不花钱不下载就能用的在线录屏工具。' }
-    ],
+    description: "在线录屏工具，无需下载即可录制屏幕内容和麦克风的声音。4K免费在线录屏工具，不花钱不下载就能用的在线录屏工具",
+    keywords: "在线录屏,在线屏幕录制工具,免下载录制屏幕,不用下载就可以录屏的工具,RecordRTC,webrtc录屏",
+    path: "/tool/detail/ScreenRec",
 })
 </script>

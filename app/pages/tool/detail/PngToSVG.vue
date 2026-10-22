@@ -115,13 +115,11 @@ async function selectFile(e: { target: { files: string | any[]; }; }) {
     }
 }
 
-useHead({
+useToolSeo({
     title: "Png转SVG",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: 'Png转SVG,在线将PNG转换成SVG格式,免费PNG转换成SVG,Png to SVG,png conver to svg' },
-        { name: 'description', content: '一个可以在线将PNG图片转换成SVG格式的工具。A tool that can convert PNG images to SVG format online.' }
-    ],
+    description: "一个可以在线将PNG图片转换成SVG格式的工具。A tool that can convert PNG images to SVG format online.",
+    keywords: "Png转SVG,在线将PNG转换成SVG格式,免费PNG转换成SVG,Png to SVG,png conver to svg",
+    path: "/tool/detail/PngToSVG",
 })
 
 

@@ -226,12 +226,10 @@ function toCopy(params: any) {
     $toast.success("复制成功")
 }
 
-useHead({
+useToolSeo({
     title: "时间戳在线转换工具",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: '时间戳工具,时间转换,时间戳转换,时间戳在线转换工具' },
-        { name: 'description', content: '一个时间戳转换工具，用于将时间戳转换成时间或者将时间转换成时间。' }
-    ],
+    description: "一个时间戳转换工具，用于将时间戳转换成时间或者将时间转换成时间戳",
+    keywords: "时间戳工具,时间转换,时间戳转换,时间戳在线转换工具",
+    path: "/tool/detail/Timestamp",
 })
 </script>

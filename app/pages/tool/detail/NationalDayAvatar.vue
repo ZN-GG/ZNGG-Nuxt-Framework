@@ -201,13 +201,11 @@ function IsPhone() {
     return isPhone;
 }
 
-useHead({
+useToolSeo({
     title: "国庆头像生成器",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: '国庆头像生成器,在线生成国庆头像,一键微信国庆头像生成,微信头像加五星红旗,国庆微信头像' },
-        { name: 'description', content: '这是一个一键生成国庆头像的小程序，上传自己头像后可以选择合适的国庆头像样式，随后保存头像即可。' }
-    ],
+    description: "这是一个一键生成国庆头像的小程序，上传自己头像后可以选择合适的国庆头像样式，随后保存头像即可",
+    keywords: "国庆头像生成器,在线生成国庆头像,一键微信国庆头像生成,微信头像加五星红旗,国庆微信头像",
+    path: "/tool/detail/NationalDayAvatar",
 })
 </script>
 <style scoped>

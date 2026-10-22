@@ -116,13 +116,11 @@ function reset() {
     }
 }
 
-useHead({
+useToolSeo({
     title: "Word转PDF",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: 'word转pdf,word to pdf,docx转pdf' },
-        { name: 'description', content: '在线Word转PDF工具，仅支持 .docx，浏览器本地转换，文件不上传，免费无需登录。' }
-    ],
+    description: "在线Word转PDF工具，仅支持 .docx，浏览器本地转换，文件不上传，免费无需登录",
+    keywords: "word转pdf,word to pdf,docx转pdf",
+    path: "/tool/detail/WordToPDF",
 })
 </script>
 <style scoped>

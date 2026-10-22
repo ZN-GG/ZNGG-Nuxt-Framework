@@ -218,8 +218,10 @@ function groupIndexRoute(groupType: SearchType) {
 watch(q, (value) => { input.value = value })
 watch(() => route.query.type, () => { /* keep the query-driven state reactive */ })
 
-useHead({
+usePageSeo(() => ({
   title: q.value ? `搜索：${q.value} - ZNGG在线工具` : '搜索 - ZNGG在线工具',
-  meta: [{ name: 'robots', content: 'noindex' }],
-})
+  description: q.value ? `在 ZNGG 在线工具站内搜索「${q.value}」的结果。` : '搜索 ZNGG 在线工具站内的工具、文章、项目与资源。',
+  path: '/search',
+  robots: 'noindex, follow',
+}))
 </script>

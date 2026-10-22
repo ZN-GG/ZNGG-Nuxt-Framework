@@ -37,13 +37,11 @@
 
 <script>
 
-useHead({
+useToolSeo({
     title: "打字练习工具",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: '打字练习器,在线打字练习' },
-        { name: 'description', content: '一个免费的在线打字练习工具' }
-    ],
+    description: "一个免费的在线打字练习工具，包含英文单词与指法练习",
+    keywords: "打字练习器,在线打字练习",
+    path: "/tool/detail/MasterTyping",
 })
 </script>
 <style scoped></style>

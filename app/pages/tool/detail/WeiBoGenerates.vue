@@ -196,13 +196,11 @@ function setVip(index: string) {
 }
 
 
-useHead({
+useToolSeo({
     title: "微博图片生成器",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: '微博图片生成,名人微博图片生成,生成微博图片。' },
-        { name: 'description', content: '可以在线生成任意微博信息，恶搞微博图片生成。' }
-    ],
+    description: "可以在线生成任意微博信息，恶搞微博图片生成",
+    keywords: "微博图片生成,名人微博图片生成,生成微博图片",
+    path: "/tool/detail/WeiBoGenerates",
 })
 
 

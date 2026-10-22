@@ -37,6 +37,7 @@ const message = computed(() => statusCode.value === 404
   : '服务暂时不可用，请稍后再试。')
 
 useHead({
+  title: computed(() => `${title.value} - ZNGG在线工具`),
   meta: [{ name: 'robots', content: 'noindex' }],
 })
 

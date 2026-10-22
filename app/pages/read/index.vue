@@ -6,7 +6,7 @@
                     <div class="flex items-center justify-between gap-3 border-b border-gray-100 pb-5">
                         <div class="flex items-center gap-2">
                             <span class="-ml-3 h-5 w-1 shrink-0 rounded-full bg-blue-600"></span>
-                            <p class="text-2xl font-semibold text-gray-800">最新文章</p>
+                            <h1 class="text-2xl font-semibold text-gray-800">最新文章</h1>
                         </div>
                         <button type="button" @click="showCategory()"
                             class="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-base text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600"
@@ -215,15 +215,11 @@ async function loadMore() {
 }
 
 
-useHead({
-    title: "文章",
-    titleTemplate: (title) => `${title} - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: 'ZNGG在线工具文章,IT文章分享,高质量内容输出,高质量文章分享' },
-        { name: 'description', content: 'ZNGG在线工具是一个持续提供高质量内容输出平台，并将输出内容转变为成果，提供各种各样的在线工具。' }
-    ],
-    script: [
-    ]
+usePageSeo({
+    title: '技术文章 - ZNGG在线工具',
+    description: '分享前端、后端与设计相关的技术文章，记录开发实践、问题排查与效率工具使用经验。',
+    keywords: '技术文章,前端开发,后端开发,编程实践,效率工具',
+    path: '/read',
 })
 </script>
 

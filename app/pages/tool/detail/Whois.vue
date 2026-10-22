@@ -175,13 +175,11 @@ function search() {
 }
 
 
-useHead({
+useToolSeo({
     title: "Whois查询",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: 'whois查询工具' },
-        { name: 'description', content: '站长都爱用的whois查询工具，查询域名相关信息' }
-    ],
+    description: "站长常用的 Whois 查询工具，快速查询域名注册信息、到期时间与域名状态",
+    keywords: "whois查询,域名查询,域名注册信息查询,whois查询工具",
+    path: "/tool/detail/Whois",
 })
 </script>
 

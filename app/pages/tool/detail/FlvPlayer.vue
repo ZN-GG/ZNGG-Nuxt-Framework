@@ -135,13 +135,11 @@ function destroy() {
 }
 
 
-useHead({
+useToolSeo({
     title: "Flv在线播放器",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: 'Flv在线播放,flv直播播放器,flv直播测试,mp4播放器,mp4在线播放,在线播放器' },
-        { name: 'description', content: '测试flv拉流专用的播放器，flv直播是一种稳定好用的直播拉流方案，所以专门做了这样一个播放器用于测试flv直播拉流。' }
-    ],
+    description: "测试flv拉流专用的播放器，flv直播是一种稳定好用的直播拉流方案，所以专门做了这样一个播放器用于测试flv直播拉流",
+    keywords: "Flv在线播放,flv直播播放器,flv直播测试,mp4播放器,mp4在线播放,在线播放器",
+    path: "/tool/detail/FlvPlayer",
 })
 
 

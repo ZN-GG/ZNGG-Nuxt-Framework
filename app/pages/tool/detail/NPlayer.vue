@@ -162,13 +162,11 @@ function destroy() {
 }
 
 
-useHead({
+useToolSeo({
     title: "NPlayer在线播放器",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: 'NPlayer播放器,m3u8直播测试,flv直播播放器,flv直播测试,mp4播放测试,m3u8播放测试,在线播放器' },
-        { name: 'description', content: '' }
-    ],
+    description: "NPlayer 在线播放器，支持 m3u8、flv、mp4 等视频格式的在线播放与拉流测试",
+    keywords: "NPlayer播放器,m3u8直播测试,flv直播播放器,flv直播测试,mp4播放测试,m3u8播放测试,在线播放器",
+    path: "/tool/detail/NPlayer",
 })
 
 

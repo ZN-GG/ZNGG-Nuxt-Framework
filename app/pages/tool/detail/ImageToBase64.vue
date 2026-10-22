@@ -96,13 +96,11 @@ async function selectFile(e: any) {
 }
 
 
-useHead({
+useToolSeo({
     title: "图片转Base64",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: '在线Base64转图片,图片转Base64编码,在线图片转换' },
-        { name: 'description', content: '一个可以将图片和Base64编码相互转换的工具，在图片格式转换时会用到。' }
-    ],
+    description: "一个可以将图片和Base64编码相互转换的工具，在图片格式转换时会用到",
+    keywords: "在线Base64转图片,图片转Base64编码,在线图片转换",
+    path: "/tool/detail/ImageToBase64",
 })
 
 function addHeader() {

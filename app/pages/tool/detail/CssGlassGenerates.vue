@@ -132,13 +132,11 @@ function copyStyle() {
     $toast.success("复制成功")
 }
 
-useHead({
+useToolSeo({
     title: "CSS毛玻璃效果",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: '在线生成CSS毛玻璃效果,在线生成CSS玻璃形态,苹果毛玻璃效果制作' },
-        { name: 'description', content: '可以帮助您轻松生成各种CSS毛玻璃效果。' }
-    ],
+    description: "可以帮助您轻松生成各种CSS毛玻璃效果",
+    keywords: "在线生成CSS毛玻璃效果,在线生成CSS玻璃形态,苹果毛玻璃效果制作",
+    path: "/tool/detail/CssGlassGenerates",
 })
 
 </script>

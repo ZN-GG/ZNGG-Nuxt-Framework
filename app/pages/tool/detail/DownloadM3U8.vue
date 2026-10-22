@@ -100,18 +100,10 @@ const startDownload = async () => {
     state.videoUrl = url;
 };
 
-useHead({
-    title: '在线下载 M3U8 视频',
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        {
-            name: 'Keywords',
-            content: 'M3U8视频在线下载,M3U8在线合并MP4，m3u8,download m3u8 online',
-        },
-        {
-            name: 'description',
-            content: '在线下载 M3U8 视频, 合并为 MP4',
-        },
-    ],
+useToolSeo({
+    title: "在线下载 M3U8 视频",
+    description: "在线解析并下载 M3U8 视频，自动合并为 MP4 文件，支持点播与直播地址",
+    keywords: "M3U8视频在线下载,M3U8在线合并MP4,m3u8,download m3u8 online",
+    path: "/tool/detail/DownloadM3U8",
 });
 </script>

@@ -7,7 +7,7 @@
                 <div class="bg-white p-6 rounded-md">
                     <div class="flex flex-col gap-1 md:flex-row md:items-end md:justify-between">
                         <div>
-                            <p class="font-semibold text-2xl">{{ category?.name || '文章分类' }}</p>
+                            <h1 class="font-semibold text-2xl">{{ category?.name || '文章分类' }}</h1>
                             <p class="mt-1 text-sm text-gray-500">{{ copy.intro }}</p>
                         </div>
                         <p class="shrink-0 whitespace-nowrap text-sm text-gray-500">共 {{ total }} 篇文章</p>

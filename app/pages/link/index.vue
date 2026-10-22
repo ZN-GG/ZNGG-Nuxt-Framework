@@ -4,7 +4,7 @@
             <div class="container px-4 mx-auto">
                 <div class="md:flex md:-mx-4 md:items-center py-8">
                     <div class="md:w-1/2 px-4">
-                        <p class="text-2xl text-black">友情链接</p>
+                        <h1 class="text-2xl text-black">友情链接</h1>
                     </div>
                 </div>
             </div>
@@ -42,12 +42,10 @@ if (friendLinks.value?.success) {
     
 }
 
-useHead({
-    title: "友链",
-    titleTemplate: (title) => `${title} - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: '友情链接，优质网站推荐' },
-        { name: 'description', content: '友情链接页面，高质量网站推荐。' }
-    ],
+usePageSeo({
+    title: '友情链接 - ZNGG在线工具',
+    description: '友情链接与优质网站推荐，收录值得关注的个人博客、工具站与技术社区。',
+    keywords: '友情链接,优质网站推荐,个人博客,技术社区',
+    path: '/link',
 })
 </script>

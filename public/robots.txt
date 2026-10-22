@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /user
 Disallow: /writer
+Disallow: /site/manager
 
 Sitemap: https://www.zngg.net/api/site.xml

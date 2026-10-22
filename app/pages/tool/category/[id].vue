@@ -5,7 +5,7 @@
         <div class="bg-white px-6 pb-6 pt-5 rounded-md">
             <div class="flex flex-col gap-1 md:flex-row md:items-end md:justify-between">
                 <div>
-                    <p class="font-semibold text-2xl">{{ category?.name || '工具分类' }}</p>
+                    <h1 class="font-semibold text-2xl">{{ category?.name || '工具分类' }}</h1>
                     <p class="mt-1 text-sm text-gray-500">{{ copy.intro }}</p>
                 </div>
                 <p class="text-sm text-gray-500">共 {{ toolList.length }} 个工具</p>

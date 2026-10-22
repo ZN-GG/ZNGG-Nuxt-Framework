@@ -444,19 +444,11 @@ const getFullUrl = (...urls: string[]): string => {
     return arr.join("/");
 }
 
-useHead({
-    title: 'M3U8 视频下载V2Pro版',
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        {
-            name: 'Keywords',
-            content: 'M3U8 视频下载V2Pro版是一个在线电影网站视频下载工具，解决在线视频电影网站无法下载视频的问题。',
-        },
-        {
-            name: 'description',
-            content: '在线M3U8视频下载,在线电影视频下载,视频网站视频下载V2Pro版',
-        },
-    ],
+useToolSeo({
+    title: "M3U8 视频下载V2Pro版",
+    description: "在线 M3U8 视频下载，解决在线电影网站视频无法直接下载的问题",
+    keywords: "M3U8视频下载,在线电影下载,视频网站视频下载,M3U8下载V2Pro",
+    path: "/tool/detail/M3U8V2Pro",
 });
 </script>
 <style scoped>

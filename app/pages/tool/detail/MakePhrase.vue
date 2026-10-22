@@ -122,13 +122,11 @@ function conversion() {
 
 
 
-useHead({
+useToolSeo({
     title: "造新词生成器",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: '成语生成器,新词生成器,造新词生成器,田字格成语生成器,流行成语生成解释' },
-        { name: 'description', content: '流行的新词生成器，用来造新词的工具，有田字格背景、拼音和释义。' }
-    ],
+    description: "流行的新词生成器，用来造新词的工具，有田字格背景、拼音和释义",
+    keywords: "成语生成器,新词生成器,造新词生成器,田字格成语生成器,流行成语生成解释",
+    path: "/tool/detail/MakePhrase",
 })
 
 

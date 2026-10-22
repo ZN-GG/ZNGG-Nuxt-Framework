@@ -45,15 +45,11 @@ setInterval(function () {
 
 
 
-useHead({
+useToolSeo({
     title: "银河OS动态码生成工具",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: '银河OS打开ADB动态码,银河OS安装第三方软件,银河车机动态码工具' },
-        { name: 'description', content: '这是一个自动生成吉利银河OS进入开发者工具动态码的工具。' }
-    ],
-    script: [
-    ]
+    description: "这是一个自动生成吉利银河OS进入开发者工具动态码的工具",
+    keywords: "银河OS打开ADB动态码,银河OS安装第三方软件,银河车机动态码工具",
+    path: "/tool/detail/YinHeOSCode",
 })
 
 

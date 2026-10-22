@@ -1,6 +1,7 @@
 <template>
     <div ref="html">
         <div class="mx-auto container px-4 my-8 min-h-screen mt-20">
+            <h1 class="sr-only">ZNGG在线工具 - 免费在线工具、技术文章与资源下载</h1>
             <!-- 今日推荐 -->
             <!-- <div ref="container" class="bg-white p-6 rounded-md my-4">
                 <div class="flex justify-between items-center">
@@ -339,15 +340,10 @@ function formatSize(bytes: any) {
     return `${size.toFixed(index === 0 ? 0 : 1)} ${units[index]}`
 }
 
-definePageMeta({
-    title: 'Some Page'
-})
-useHead({
-    title: "ZNGG在线工具",
-    titleTemplate: (title) => `${title} - 持续高质量内容输出`,
-    meta: [
-        { name: 'Keywords', content: '前端技术分享，后端技术分享，在线小工具，设计技巧' },
-        { name: 'description', content: 'ZNGG在线工具是一个持续提供高质量内容输出平台，并将输出内容转变为成果，提供各种各样的在线工具。' }
-    ],
+usePageSeo({
+    title: 'ZNGG在线工具 - 在线工具、技术文章与资源下载',
+    description: 'ZNGG在线工具是一个持续提供高质量内容输出的平台，汇集免费在线工具、技术文章、开源项目推荐与软件资源下载。',
+    keywords: '在线工具,免费在线工具,技术文章,开源项目,软件下载,资源下载,ZNGG',
+    path: '/',
 })
 </script>

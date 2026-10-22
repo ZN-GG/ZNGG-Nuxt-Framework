@@ -4,7 +4,7 @@
             <div class="container px-4 mx-auto">
                 <div class="md:flex md:-mx-4 md:items-center py-8">
                     <div class="md:w-1/2 px-4">
-                        <p class="text-2xl text-black">优质网址导航</p>
+                        <h1 class="text-2xl text-black">优质网址导航</h1>
                     </div>
                 </div>
             </div>
@@ -69,12 +69,10 @@ async function selectCategoryId(id: number) {
     categoryId.value = id
 }
 
-useHead({
-    title: "优质网址导航",
-    titleTemplate: (title) => `${title} - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: '网址导航' },
-        { name: 'description', content: '高质量网址导航' }
-    ],
+usePageSeo({
+    title: '优质网址导航 - ZNGG在线工具',
+    description: '精选优质网站与常用服务，覆盖开发、设计、效率等分类，帮助你快速找到需要的站点。',
+    keywords: '网址导航,优质网站导航,开发工具导航,设计资源导航,效率网站',
+    path: '/nav',
 })
 </script>

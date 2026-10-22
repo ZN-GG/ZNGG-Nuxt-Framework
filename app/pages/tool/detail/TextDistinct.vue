@@ -86,13 +86,11 @@ function toCopy() {
 }
 
 
-useHead({
+useToolSeo({
     title: "在线文本去重",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: '文本去重工具,批量去重,在线去除重复。' },
-        { name: 'description', content: '在线文本去除重复工具，快速批量去重，使用场景广泛。' }
-    ],
+    description: "在线文本去除重复工具，快速批量去重，使用场景广泛",
+    keywords: "文本去重工具,批量去重,在线去除重复",
+    path: "/tool/detail/TextDistinct",
 })
 
 

@@ -7,7 +7,7 @@
 
         <div class="fixed right-0 top-0 w-full px-12 py-24 md:w-auto h-screen">
             <div class="bg-white opacity-95 w-full h-full rounded px-4">
-                <h1 class="pt-6 font-bold text-lg">轨迹会放</h1>
+                <h1 class="pt-6 font-bold text-lg">轨迹回放</h1>
                 <div>
                     <textarea v-model="data" class="bg-gray-200 outline-none w-full h-full px-2"></textarea>
                 </div>
@@ -98,6 +98,13 @@ function resumeAnimation() {
 function stopAnimation() {
     marker.stopMove();
 }
+
+useToolSeo({
+    title: '轨迹回放',
+    description: '高德地图轨迹回放演示工具，粘贴经纬度坐标即可播放移动轨迹动画。',
+    keywords: '轨迹回放,高德地图轨迹回放,地图轨迹动画,坐标轨迹演示',
+    path: '/tool/detail/TraceReplay',
+})
 
 definePageMeta({
     layout: 'empty'

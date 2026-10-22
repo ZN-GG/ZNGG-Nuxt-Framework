@@ -2,7 +2,7 @@
     <div class="mx-auto container px-4 my-8 min-h-screen mt-20">
         <div class="bg-white px-6 pb-6 pt-5 rounded-md mt-8 mb-4">
             <div class="flex flex-wrap items-center justify-between gap-5">
-                <p class="text-2xl font-semibold text-gray-800">在线工具</p>
+                <h1 class="text-2xl font-semibold text-gray-800">在线工具</h1>
                 <div
                     class="category-scroll flex w-full gap-2 overflow-x-auto pb-1 md:w-auto md:flex-wrap md:justify-end md:overflow-visible md:pb-0">
                     <button type="button" :class="filterClass(categoryId == '')" @click="selectCategoryId('')">
@@ -96,13 +96,11 @@ async function selectCategoryId(id: string) {
 }
 
 
-useHead({
-    title: "工具",
-    titleTemplate: (title) => `${title} - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: 'ZNGG在线工具,时间戳工具,在线转换工具,Json在线解析格式化' },
-        { name: 'description', content: 'ZNGG在线工具是一个持续提供高质量内容输出平台，并将输出内容转变为成果，提供各种各样的在线工具。' }
-    ],
+usePageSeo({
+    title: '在线工具 - ZNGG在线工具',
+    description: '免费在线工具集合，涵盖编码转换、图片处理、视频下载、开发调试等实用工具，打开即用，无需安装。',
+    keywords: '在线工具,免费在线工具,格式转换工具,图片处理工具,视频下载工具,开发调试工具',
+    path: '/tool',
 })
 </script>
 

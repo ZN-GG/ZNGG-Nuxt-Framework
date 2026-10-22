@@ -133,13 +133,11 @@ function toCopy() {
 
 }
 
-useHead({
+useToolSeo({
     title: "文字里的秘密",
-    titleTemplate: (title) => `${title} - 工具 - ZNGG在线工具`,
-    meta: [
-        { name: 'Keywords', content: '文字里的秘密,文字隐写术,隐藏文字,隐藏字符,把爱情藏进文字,零宽字符,属于两个人的秘密' },
-        { name: 'description', content: '一个能够把一段文字隐藏于另一端文字的工具，基于零宽字符的原理，可以把一些小秘密藏起来发送给好友，让ta来本站解密揭晓答案。' }
-    ],
+    description: "一个能够把一段文字隐藏于另一端文字的工具，基于零宽字符的原理，可以把一些小秘密藏起来发送给好友，让ta来本站解密揭晓答案",
+    keywords: "文字里的秘密,文字隐写术,隐藏文字,隐藏字符,把爱情藏进文字,零宽字符,属于两个人的秘密",
+    path: "/tool/detail/TextSecret",
 })
 
 

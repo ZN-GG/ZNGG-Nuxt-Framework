@@ -20,11 +20,10 @@ definePageMeta({
     middleware: ['auth']
 })
 
-useHead({
-    title: "个人中心",
-    titleTemplate: (title) => `${title} - ZNGG在线工具`,
-    meta: [
-        { name: 'description', content: 'ZNGG在线工具个人中心，管理文章、收藏与账号信息。' }
-    ],
+usePageSeo({
+    title: '个人中心 - ZNGG在线工具',
+    description: 'ZNGG在线工具个人中心，管理文章、收藏与账号信息。',
+    path: '/user',
+    robots: 'noindex, nofollow',
 })
 </script>
