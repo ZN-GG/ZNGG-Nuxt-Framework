@@ -252,6 +252,11 @@ definePageMeta({
     middleware: ['admin']
 })
 
+useHead({
+    title: '导航管理',
+    titleTemplate: (title) => `${title} - 管理后台 - ZNGG在线工具`,
+})
+
 const { $toast } = useNuxtApp()
 
 const categories = ref<any[]>([])

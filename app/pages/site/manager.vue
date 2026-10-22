@@ -43,4 +43,9 @@
 definePageMeta({
     middleware: ['admin']
 })
+
+useHead({
+    title: '管理后台',
+    titleTemplate: (title) => `${title} - ZNGG在线工具`,
+})
 </script>
